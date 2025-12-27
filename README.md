@@ -3,15 +3,72 @@
 A new Flutter project.
 
 ## Getting Started
+🚀 Comment quelqu’un utilise ton projet
+1️⃣ Cloner le projet
+git clone https://github.com/ton-repo/projet.git
+cd projet
 
-This project is a starting point for a Flutter application.
+2️⃣ Installer Flutter (une seule fois)
+flutter doctor
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+(Il installe ou vérifie Android SDK, émulateur, etc.)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# stockmaster
+3️⃣ Récupérer les dépendances
+flutter pub get
+
+
+👉 Cette commande recrée :
+
+.dart_tool/
+
+.pub-cache/
+
+.flutter-plugins-dependencies
+
+(tous ignorés par Git, donc normal 👍)
+
+4️⃣ Lancer le projet
+flutter run
+
+
+Ou via Android Studio / VS Code ▶️
+
+🏗️ Les dossiers ignorés sont recréés automatiquement
+
+Par exemple :
+
+/build/ → recréé au build
+
+.idea/ → recréé par IntelliJ
+
+.vscode/ → recréé par VS Code
+
+android/app/debug → généré à la compilation
+
+👉 Aucun problème s’ils ne sont pas dans Git
+
+📄 Conseil important : README.md
+
+Ajoute un README.md avec :
+
+## Installation
+flutter pub get
+flutter run
+
+
+Ça évite toute confusion pour les autres développeurs.
+
+✅ En résumé
+
+Ton .gitignore est bon
+
+Git ignore uniquement des fichiers non essentiels
+
+Toute personne peut :
+
+Cloner
+
+flutter pub get
+
+flutter run
