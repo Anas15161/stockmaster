@@ -6,11 +6,11 @@ StockMaster suit l'architecture **MVVM (Model-View-ViewModel)**. Ce modèle sép
 ### Diagramme de Flux de Données
 ```mermaid
 graph TD
-    User[Utilisateur] --> View[View (UI Widgets)]
-    View -->|Action/Event| VM[ViewModel (Provider)]
+    User[Utilisateur] --> View["View (UI Widgets)"]
+    View -->|Action/Event| VM["ViewModel (Provider)"]
     VM -->|Notify Listeners| View
-    VM -->|CRUD Ops| Service[Services (DatabaseHelper)]
-    Service -->|SQL Query| DB[(SQLite Database)]
+    VM -->|CRUD Ops| Service["Services (DatabaseHelper)"]
+    Service -->|SQL Query| DB[("SQLite Database")]
     DB -->|Result| Service
     Service -->|Data Model| VM
 ```

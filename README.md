@@ -73,11 +73,11 @@ Le projet respecte scrupuleusement le design pattern **MVVM (Model-View-ViewMode
 
 ```mermaid
 graph TD
-    User[Utilisateur] --> View[View (UI Widgets)]
-    View -->|Action/Événement| VM[ViewModel (Provider)]
+    User[Utilisateur] --> View["View (UI Widgets)"]
+    View -->|Action/Événement| VM["ViewModel (Provider)"]
     VM -->|Notification de mise à jour| View
-    VM -->|Opérations CRUD| Service[Services (DatabaseHelper)]
-    Service -->|Requêtes SQL| DB[(SQLite Database)]
+    VM -->|Opérations CRUD| Service["Services (DatabaseHelper)"]
+    Service -->|Requêtes SQL| DB[("SQLite Database")]
     DB -->|Résultat brut| Service
     Service -->|Modèles Typés| VM
 ```
