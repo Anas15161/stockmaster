@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockMaster - Mind Map Interactive</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="modules_map.css">
+</head>
+<body>
+
+    <!-- Header Stats -->
+    <div class="top-bar">
+        <div class="logo"><i class="fas fa-microchip"></i> <span>StockMaster</span> Core</div>
+        <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Rechercher un module (ex: 'scan', 'pdf')...">
+        </div>
+        <div class="view-controls">
+            <button class="btn-tech" onclick="resetView()"><i class="fas fa-expand"></i> Reset</button>
+        </div>
+    </div>
+
+    <!-- Main Workspace -->
+    <main>
+        <div id="mindmap"></div>
+        
+        <!-- Details Side Panel (Full CSS Mockup) -->
+        <aside id="sidePanel">
+            <div class="panel-content">
+                <div class="badge" id="nodeType">Module System</div>
+                <h2 id="nodeTitle">Sélectionnez un point</h2>
+                <p id="nodeDesc">Explorez la structure fonctionnelle de l'application en naviguant dans la mind map.</p>
+                
+                <!-- CSS Virtual Mockup (No Image Needed) -->
+                <div class="virtual-mockup">
+                    <div class="mockup-header">
+                        <div class="status-bar"><span>9:41</span> <i class="fas fa-wifi"></i></div>
+                        <div class="app-bar" id="mockupTitle">StockMaster</div>
+                    </div>
+                    <div class="mockup-body" id="mockupContent">
+                        <!-- Généré par JS -->
+                        <div class="placeholder-content">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Points Clés</h3>
+                <ul id="nodeBullets">
+                    <li>Visualisation 3D temps réel</li>
+                    <li>Architecture MVVM propre</li>
+                    <li>Base SQLite sécurisée</li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <script src="modules_map.js"></script>
+</body>
+</html>

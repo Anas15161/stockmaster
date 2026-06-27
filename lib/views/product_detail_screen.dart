@@ -5,6 +5,8 @@ import 'package:barcode_widget/barcode_widget.dart';
 import '../models/product.dart';
 import '../utils/app_colors.dart';
 import '../viewmodels/stock_viewmodel.dart';
+import '../viewmodels/language_viewmodel.dart';
+import '../viewmodels/settings_viewmodel.dart';
 import 'add_product_screen.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -23,6 +25,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   Widget build(BuildContext context) {
     // Re-fetch product from provider to get updates if it was edited
     final viewModel = Provider.of<StockViewModel>(context);
+    final languageViewModel = Provider.of<LanguageViewModel>(context);
+    final settingsViewModel = Provider.of<SettingsViewModel>(context);
     final product = viewModel.products.firstWhere(
       (p) => p.id == widget.product.id,
       orElse: () => widget.product,
@@ -36,6 +40,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
+            tooltip: languageViewModel.translate('edit_product'),
             onPressed: () {
               Navigator.push(
                 context,
@@ -72,8 +77,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             });
                           },
                           itemBuilder: (context, index) {
+                            final imagePath = product.images[index];
+                            if (imagePath.startsWith('http')) {
+                              return Image.network(
+                                imagePath,
+                                fit: BoxFit.cover,
+                                errorBuilder: (ctx, err, stack) => const Center(
+                                  child: Icon(Icons.broken_image, size: 50, color: Colors.grey),
+                                ),
+                              );
+                            }
                             return Image.file(
-                              File(product.images[index]),
+                              File(imagePath),
                               fit: BoxFit.cover,
                               errorBuilder: (ctx, err, stack) => const Center(
                                 child: Icon(Icons.broken_image, size: 50, color: Colors.grey),
@@ -96,7 +111,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     shape: BoxShape.circle,
                                     color: _currentImageIndex == index
                                         ? Colors.white
-                                        : Colors.white.withOpacity(0.5),
+                                        : Colors.white.withValues(alpha: 0.5),
                                   ),
                                 ),
                               ),
@@ -130,7 +145,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8),
                         boxShadow: [
-                          BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 4),
+                          BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 4),
                         ],
                       ),
                       child: Column(
@@ -144,7 +159,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             style: const TextStyle(fontSize: 14),
                           ),
                           const SizedBox(height: 4),
-                          const Text("Scan this code to find product", style: TextStyle(fontSize: 10, color: Colors.grey)),
+                          Text(languageViewModel.translate('scan_code_hint'), style: const TextStyle(fontSize: 10, color: Colors.grey)),
                         ],
                       ),
                     ),
@@ -153,11 +168,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   const SizedBox(height: 24),
                   
                   _buildDetailRow("SKU", product.sku),
-                  _buildDetailRow("Price", "\$${product.sellingPrice.toStringAsFixed(2)}"),
-                  _buildDetailRow("Cost", "\$${product.costPrice.toStringAsFixed(2)}"),
-                  _buildDetailRow("Quantity", product.quantity.toString()),
+                  _buildDetailRow(languageViewModel.translate('price'), settingsViewModel.formatPrice(product.sellingPrice)),
+                  _buildDetailRow(languageViewModel.translate('cost'), settingsViewModel.formatPrice(product.costPrice)),
+                  _buildDetailRow(languageViewModel.translate('quantity'), product.quantity.toString()),
                   if (product.supplier != null && product.supplier!.isNotEmpty)
-                    _buildDetailRow("Supplier", product.supplier!),
+                    _buildDetailRow(languageViewModel.translate('supplier'), product.supplier!),
 
                   const SizedBox(height: 30),
                   
@@ -165,14 +180,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     width: double.infinity,
                     child: ElevatedButton.icon(
                       icon: const Icon(Icons.add_box),
-                      label: const Text("Add Stock"),
+                      label: Text(languageViewModel.translate('add_stock')),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.vertCroissance,
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 12),
                       ),
                       onPressed: () {
-                        _showAddStockDialog(context, product, viewModel);
+                        _showAddStockDialog(context, product, viewModel, languageViewModel);
                       },
                     ),
                   )
@@ -198,24 +213,24 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     );
   }
 
-  void _showAddStockDialog(BuildContext context, Product product, StockViewModel viewModel) {
+  void _showAddStockDialog(BuildContext context, Product product, StockViewModel viewModel, LanguageViewModel languageViewModel) {
     final qtyController = TextEditingController(text: "10");
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text("Add Stock: ${product.name}"),
+        title: Text("${languageViewModel.translate('add_stock')}: ${product.name}"),
         content: TextField(
           controller: qtyController,
           keyboardType: TextInputType.number,
-          decoration: const InputDecoration(
-            labelText: "Quantity to Add",
-            border: OutlineInputBorder(),
+          decoration: InputDecoration(
+            labelText: languageViewModel.translate('quantity_to_add'),
+            border: const OutlineInputBorder(),
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text("Cancel"),
+            child: Text(languageViewModel.translate('cancel')),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: AppColors.vertCroissance),
@@ -236,11 +251,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 viewModel.updateProduct(updatedProduct);
                 Navigator.pop(ctx);
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Added $addQty to ${product.name}")),
+                  SnackBar(content: Text("${languageViewModel.translate('added_to')} $addQty ${languageViewModel.translate('to')} ${product.name}")),
                 );
               }
             },
-            child: const Text("Add", style: TextStyle(color: Colors.white)),
+            child: Text(languageViewModel.translate('add'), style: const TextStyle(color: Colors.white)),
           ),
         ],
       ),

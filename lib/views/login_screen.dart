@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import '../viewmodels/auth_viewmodel.dart';
 import '../utils/app_colors.dart';
 import 'main_screen.dart';
+import 'signup_screen.dart';
+import 'forgot_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -50,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 80,
                       width: 120, // Rectangular width
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.15),
+                        color: Colors.white.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(16), // Rounded rectangle
                       ),
                       padding: const EdgeInsets.all(12),
@@ -78,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       "Inventory Management System",
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.white.withOpacity(0.8),
+                        color: Colors.white.withValues(alpha: 0.8),
                       ),
                     ),
                     const SizedBox(height: 40), // Space for the curve
@@ -107,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
+                          color: Colors.black.withValues(alpha: 0.1),
                           blurRadius: 20,
                           offset: const Offset(0, 10),
                         ),
@@ -151,7 +153,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             alignment: Alignment.centerRight,
                             child: TextButton(
                               onPressed: () {
-                                // TODO: Implement forgot password
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => const ForgotPasswordScreen()),
+                                );
                               },
                               child: const Text(
                                 "Forgot Password?",
@@ -173,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 backgroundColor: AppColors.bleuStock,
                                 foregroundColor: Colors.white,
                                 elevation: 4,
-                                shadowColor: AppColors.bleuStock.withOpacity(0.4),
+                                shadowColor: AppColors.bleuStock.withValues(alpha: 0.4),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16),
                                 ),
@@ -186,12 +191,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                           _usernameController.text,
                                           _passwordController.text,
                                         );
-                                        if (success && mounted) {
+                                        
+                                        if (!context.mounted) return;
+
+                                        if (success) {
                                           Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(builder: (_) => const MainScreen()),
                                           );
-                                        } else if (mounted) {
+                                        } else {
                                           ScaffoldMessenger.of(context).showSnackBar(
                                             SnackBar(
                                               content: const Text("Invalid Credentials"),
@@ -229,8 +237,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 foregroundColor: AppColors.bleuStock,
                               ),
                               onPressed: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text("Account creation disabled in demo mode.")),
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => const SignUpScreen()),
                                 );
                               },
                               child: const Text(

@@ -1,12 +1,14 @@
 class User {
   final int? id;
   final String username;
+  final String email;
   final String passwordHash;
   final String role; // 'admin' or 'employee'
 
   User({
     this.id,
     required this.username,
+    required this.email,
     required this.passwordHash,
     required this.role,
   });
@@ -15,6 +17,7 @@ class User {
     return {
       'id': id,
       'username': username,
+      'email': email,
       'passwordHash': passwordHash,
       'role': role,
     };
@@ -24,6 +27,7 @@ class User {
     return User(
       id: map['id'],
       username: map['username'],
+      email: map['email'] ?? '',
       passwordHash: map['passwordHash'],
       role: map['role'],
     );

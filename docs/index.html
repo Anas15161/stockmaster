@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flutter Widget Inspector</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Prism Syntax Highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fab fa-flutter"></i>
+                <span>Widget<span class="highlight">Inspector</span></span>
+            </div>
+            
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="pageSearch" placeholder="Filter pages...">
+            </div>
+
+            <div class="nav-menu" id="pageList">
+                <!-- Pages injected here -->
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Header -->
+            <header>
+                <h2 id="headerTitle">Dashboard</h2>
+                <div class="badges" id="headerBadges"></div>
+            </header>
+
+            <!-- Dashboard View -->
+            <div id="dashboardView" class="view active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="icon blue"><i class="fas fa-file-code"></i></div>
+                        <div class="info">
+                            <span class="value" id="statPages">0</span>
+                            <span class="label">Écrans Analysés</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon purple"><i class="fas fa-cubes"></i></div>
+                        <div class="info">
+                            <span class="value" id="statWidgets">0</span>
+                            <span class="label">Widgets Détectés</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon green"><i class="fas fa-layer-group"></i></div>
+                        <div class="info">
+                            <span class="value" id="statCategories">0</span>
+                            <span class="label">Catégories</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-box">
+                        <h3>Répartition par Catégorie</h3>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                    <div class="chart-box">
+                        <h3>Top 10 Widgets Global</h3>
+                        <canvas id="topWidgetsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Detail View -->
+            <div id="pageDetailView" class="view">
+                <div class="detail-container">
+                    
+                    <!-- Stats Bar -->
+                    <div class="page-stats-bar">
+                        <div class="p-stat">
+                            <span class="p-label">Total Widgets</span>
+                            <span class="p-val" id="pTotal">0</span>
+                        </div>
+                        <div class="p-stat">
+                            <span class="p-label">Distincts</span>
+                            <span class="p-val" id="pDistinct">0</span>
+                        </div>
+                        <div class="p-stat">
+                            <span class="p-label">Complexité</span>
+                            <span class="p-val" id="pComplexity">Low</span>
+                        </div>
+                    </div>
+
+                    <!-- Widgets by Category -->
+                    <div id="widgetsContainer">
+                        <!-- Injected JS -->
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-dart.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

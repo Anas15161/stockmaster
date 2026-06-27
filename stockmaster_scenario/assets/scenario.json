@@ -1,0 +1,59 @@
+{
+  "title": "StockMaster — Démo Use Case Réel",
+  "steps": [
+    {
+      "id": "login",
+      "title": "Prise de poste",
+      "subtitle": "Connexion sécurisée",
+      "screenshot": "/stockmaster_docs/login.jpeg",
+      "desc": "Le responsable du magasin arrive le matin et se connecte à l'application pour commencer sa journée.",
+      "bullets": ["Authentification SHA-256", "Vérification des droits", "Accès sécurisé"],
+      "kpi": {"label": "Sécurité", "value": "100%"}
+    },
+    {
+      "id": "dashboard",
+      "title": "Analyse matinale",
+      "subtitle": "Consultation du Tableau de Bord",
+      "screenshot": "/stockmaster_docs/Tableau_de_bord.png",
+      "desc": "Il consulte immédiatement les indicateurs clés pour identifier les urgences (stocks faibles).",
+      "bullets": ["Valeur du stock", "Produits en alerte", "Tendances mouvements"],
+      "kpi": {"label": "Alertes stock", "value": "3 produits"}
+    },
+    {
+      "id": "new_product",
+      "title": "Réception Nouveauté",
+      "subtitle": "Ajout d'un produit au catalogue",
+      "screenshot": "/stockmaster_docs/add_product.png",
+      "desc": "Une nouvelle référence de casque audio vient d'arriver. Il l'ajoute rapidement au catalogue.",
+      "bullets": ["Saisie informations", "Scan code-barres", "Prise de photo"],
+      "kpi": {"label": "Temps saisie", "value": "< 30s"}
+    },
+    {
+      "id": "entry_stock",
+      "title": "Entrée en Stock",
+      "subtitle": "Mise à jour des quantités",
+      "screenshot": "/stockmaster_docs/products_list.png",
+      "desc": "Le fournisseur livre 50 unités. Le responsable met à jour le stock en un clic via la popup d'entrée.",
+      "bullets": ["Sélection produit", "Type 'Entrée'", "Validation instantanée"],
+      "kpi": {"label": "Stock ajouté", "value": "+50 unités"}
+    },
+    {
+      "id": "sale",
+      "title": "Vente Client",
+      "subtitle": "Sortie de stock",
+      "screenshot": "/stockmaster_docs/transactions_history.png",
+      "desc": "Un client achète 2 articles. Le responsable enregistre la sortie pour maintenir l'inventaire à jour.",
+      "bullets": ["Motif 'Vente'", "Décrémentation auto", "Trace dans l'historique"],
+      "kpi": {"label": "Mouvement", "value": "-2 unités"}
+    },
+    {
+      "id": "report",
+      "title": "Fin de journée",
+      "subtitle": "Rapport et Export",
+      "screenshot": "/stockmaster_docs/rapport&stistics.png",
+      "desc": "Avant de partir, il génère un rapport PDF des mouvements du jour pour la comptabilité.",
+      "bullets": ["Synthèse journalière", "Génération PDF", "Export CSV"],
+      "kpi": {"label": "Fichier", "value": "rapport.pdf"}
+    }
+  ]
+}

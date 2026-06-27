@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockMaster - 3D Showcase</title>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="brand">
+            <h1>StockMaster</h1>
+            <p>App Showcase • MVVM Architecture</p>
+        </div>
+        <div class="controls-top">
+            <button class="btn-mode active" onclick="setMode('carousel')"><i class="fas fa-circle-notch"></i> Carousel</button>
+            <button class="btn-mode" onclick="setMode('cube')"><i class="fas fa-cube"></i> Cube</button>
+            <button class="btn-mode" onclick="toggleAutoRotate()"><i class="fas fa-play"></i> Auto</button>
+        </div>
+    </header>
+
+    <div class="scene">
+        <button class="nav-btn prev" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
+        
+        <!-- Conteneur pour la flottaison -->
+        <div class="floating">
+            <!-- Conteneur pour la rotation 3D -->
+            <div class="carousel" id="carousel3D">
+                <!-- Les items seront injectés ici par JS -->
+            </div>
+        </div>
+
+        <button class="nav-btn next" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <div class="thumbnails" id="thumbsContainer">
+        <!-- Thumbnails injectées ici -->
+    </div>
+
+    <!-- Script -->
+    <script src="app.js"></script>
+</body>
+</html>

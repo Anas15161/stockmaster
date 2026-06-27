@@ -1,0 +1,23 @@
+Étapes de correction :
+
+   1. Générez le fichier JSON (à la racine du projet) :
+   1     node tools/generate_widgets_report.js
+      Attendez de voir le message "✅ Widget Report generated..."
+
+   2. Vérifiez que le fichier est là :
+   1     dir docs/widgets_report.json
+
+   3. Lancez le serveur web (dans le dossier docs) :
+   1     cd docs
+   2     python -m http.server 8000
+
+╭────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ ✓  Shell node tools/generate_widgets_report.js [current working directory C:\Users\PC\IdeaProjects\StockM… │
+│                                                                                                            │
+│ 🔍 Scanning ./lib folder for widgets...                                                                    │
+│ ✅ Widget Report generated at ./docs/widgets_report.json                                                   │
+│    - Analyzed 19 screens/pages                                                                             │
+│    - Detected 1159 widget usages                                                                           │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+   4. Ouvrez le navigateur :
+      http://localhost:8000

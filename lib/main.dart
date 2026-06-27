@@ -3,6 +3,10 @@ import 'package:provider/provider.dart';
 import 'viewmodels/stock_viewmodel.dart';
 import 'viewmodels/auth_viewmodel.dart';
 import 'viewmodels/theme_viewmodel.dart';
+import 'viewmodels/language_viewmodel.dart';
+import 'viewmodels/settings_viewmodel.dart';
+import 'viewmodels/users_roles_viewmodel.dart';
+import 'viewmodels/reports_viewmodel.dart';
 import 'views/main_screen.dart';
 import 'views/login_screen.dart';
 import 'utils/app_colors.dart';
@@ -19,9 +23,13 @@ class StockMasterApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => StockViewModel()..fetchProducts()),
+        ChangeNotifierProvider(create: (_) => StockViewModel()..refreshAll()),
         ChangeNotifierProvider(create: (_) => AuthViewModel()..checkLoginStatus()),
         ChangeNotifierProvider(create: (_) => ThemeViewModel()),
+        ChangeNotifierProvider(create: (_) => LanguageViewModel()),
+        ChangeNotifierProvider(create: (_) => SettingsViewModel()),
+        ChangeNotifierProvider(create: (_) => UsersRolesViewModel()..refreshAll()),
+        ChangeNotifierProvider(create: (_) => ReportsViewModel()),
       ],
       child: Consumer<ThemeViewModel>(
         builder: (context, themeViewModel, child) {

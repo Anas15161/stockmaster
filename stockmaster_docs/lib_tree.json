@@ -1,0 +1,294 @@
+{
+  "name": "lib/",
+  "path": "./lib",
+  "type": "root",
+  "category": "root",
+  "size": 0,
+  "children": [
+    {
+      "name": "models",
+      "path": "lib/models",
+      "type": "folder",
+      "category": "models",
+      "size": 0,
+      "children": [
+        {
+          "name": "product.dart",
+          "path": "lib/models/product.dart",
+          "type": "file",
+          "category": "other",
+          "size": 1625
+        },
+        {
+          "name": "stock_movement.dart",
+          "path": "lib/models/stock_movement.dart",
+          "type": "file",
+          "category": "other",
+          "size": 1248
+        },
+        {
+          "name": "user.dart",
+          "path": "lib/models/user.dart",
+          "type": "file",
+          "category": "other",
+          "size": 705
+        }
+      ]
+    },
+    {
+      "name": "services",
+      "path": "lib/services",
+      "type": "folder",
+      "category": "services",
+      "size": 0,
+      "children": [
+        {
+          "name": "database_helper.dart",
+          "path": "lib/services/database_helper.dart",
+          "type": "file",
+          "category": "utils",
+          "size": 11879
+        },
+        {
+          "name": "import_service.dart",
+          "path": "lib/services/import_service.dart",
+          "type": "file",
+          "category": "services",
+          "size": 10541
+        }
+      ]
+    },
+    {
+      "name": "utils",
+      "path": "lib/utils",
+      "type": "folder",
+      "category": "utils",
+      "size": 0,
+      "children": [
+        {
+          "name": "app_colors.dart",
+          "path": "lib/utils/app_colors.dart",
+          "type": "file",
+          "category": "other",
+          "size": 803
+        },
+        {
+          "name": "app_translations.dart",
+          "path": "lib/utils/app_translations.dart",
+          "type": "file",
+          "category": "other",
+          "size": 11499
+        }
+      ]
+    },
+    {
+      "name": "viewmodels",
+      "path": "lib/viewmodels",
+      "type": "folder",
+      "category": "models",
+      "size": 0,
+      "children": [
+        {
+          "name": "auth_viewmodel.dart",
+          "path": "lib/viewmodels/auth_viewmodel.dart",
+          "type": "file",
+          "category": "models",
+          "size": 4701
+        },
+        {
+          "name": "language_viewmodel.dart",
+          "path": "lib/viewmodels/language_viewmodel.dart",
+          "type": "file",
+          "category": "models",
+          "size": 1243
+        },
+        {
+          "name": "reports_viewmodel.dart",
+          "path": "lib/viewmodels/reports_viewmodel.dart",
+          "type": "file",
+          "category": "models",
+          "size": 7875
+        },
+        {
+          "name": "settings_viewmodel.dart",
+          "path": "lib/viewmodels/settings_viewmodel.dart",
+          "type": "file",
+          "category": "models",
+          "size": 1741
+        },
+        {
+          "name": "stock_viewmodel.dart",
+          "path": "lib/viewmodels/stock_viewmodel.dart",
+          "type": "file",
+          "category": "models",
+          "size": 6028
+        },
+        {
+          "name": "theme_viewmodel.dart",
+          "path": "lib/viewmodels/theme_viewmodel.dart",
+          "type": "file",
+          "category": "models",
+          "size": 726
+        },
+        {
+          "name": "users_roles_viewmodel.dart",
+          "path": "lib/viewmodels/users_roles_viewmodel.dart",
+          "type": "file",
+          "category": "models",
+          "size": 2187
+        }
+      ]
+    },
+    {
+      "name": "views",
+      "path": "lib/views",
+      "type": "folder",
+      "category": "views",
+      "size": 0,
+      "children": [
+        {
+          "name": "settings",
+          "path": "lib/views/settings",
+          "type": "folder",
+          "category": "other",
+          "size": 0,
+          "children": [
+            {
+              "name": "categories_settings_screen.dart",
+              "path": "lib/views/settings/categories_settings_screen.dart",
+              "type": "file",
+              "category": "views",
+              "size": 3936
+            },
+            {
+              "name": "general_settings_screen.dart",
+              "path": "lib/views/settings/general_settings_screen.dart",
+              "type": "file",
+              "category": "views",
+              "size": 6175
+            },
+            {
+              "name": "reports_settings_screen.dart",
+              "path": "lib/views/settings/reports_settings_screen.dart",
+              "type": "file",
+              "category": "views",
+              "size": 7564
+            },
+            {
+              "name": "settings_sub_page.dart",
+              "path": "lib/views/settings/settings_sub_page.dart",
+              "type": "file",
+              "category": "views",
+              "size": 2677
+            },
+            {
+              "name": "suppliers_settings_screen.dart",
+              "path": "lib/views/settings/suppliers_settings_screen.dart",
+              "type": "file",
+              "category": "views",
+              "size": 2250
+            },
+            {
+              "name": "users_roles_screen.dart",
+              "path": "lib/views/settings/users_roles_screen.dart",
+              "type": "file",
+              "category": "views",
+              "size": 12831
+            }
+          ]
+        },
+        {
+          "name": "add_product_screen.dart",
+          "path": "lib/views/add_product_screen.dart",
+          "type": "file",
+          "category": "views",
+          "size": 13502
+        },
+        {
+          "name": "dashboard_screen.dart",
+          "path": "lib/views/dashboard_screen.dart",
+          "type": "file",
+          "category": "views",
+          "size": 29727
+        },
+        {
+          "name": "forgot_password_screen.dart",
+          "path": "lib/views/forgot_password_screen.dart",
+          "type": "file",
+          "category": "views",
+          "size": 8073
+        },
+        {
+          "name": "history_screen.dart",
+          "path": "lib/views/history_screen.dart",
+          "type": "file",
+          "category": "views",
+          "size": 14194
+        },
+        {
+          "name": "login_screen.dart",
+          "path": "lib/views/login_screen.dart",
+          "type": "file",
+          "category": "views",
+          "size": 13599
+        },
+        {
+          "name": "main_screen.dart",
+          "path": "lib/views/main_screen.dart",
+          "type": "file",
+          "category": "views",
+          "size": 4964
+        },
+        {
+          "name": "placeholder_views.dart",
+          "path": "lib/views/placeholder_views.dart",
+          "type": "file",
+          "category": "views",
+          "size": 831
+        },
+        {
+          "name": "product_detail_screen.dart",
+          "path": "lib/views/product_detail_screen.dart",
+          "type": "file",
+          "category": "views",
+          "size": 10875
+        },
+        {
+          "name": "products_screen.dart",
+          "path": "lib/views/products_screen.dart",
+          "type": "file",
+          "category": "views",
+          "size": 30539
+        },
+        {
+          "name": "scan_screen.dart",
+          "path": "lib/views/scan_screen.dart",
+          "type": "file",
+          "category": "views",
+          "size": 12632
+        },
+        {
+          "name": "settings_screen.dart",
+          "path": "lib/views/settings_screen.dart",
+          "type": "file",
+          "category": "views",
+          "size": 13198
+        },
+        {
+          "name": "signup_screen.dart",
+          "path": "lib/views/signup_screen.dart",
+          "type": "file",
+          "category": "views",
+          "size": 8327
+        }
+      ]
+    },
+    {
+      "name": "main.dart",
+      "path": "lib/main.dart",
+      "type": "file",
+      "category": "other",
+      "size": 2895
+    }
+  ]
+}

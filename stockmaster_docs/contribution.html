@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contribution - StockMaster Docs</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <button id="mobile-menu-btn" class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+
+    <nav class="sidebar">
+        <div class="logo"><i class="fas fa-boxes"></i> StockMaster</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Introduction</a></li>
+            <li><a href="architecture.html">Architecture & Technique</a></li>
+            <li><a href="api.html">Données & API</a></li>
+            <li><a href="guide.html">Guide Utilisateur</a></li>
+            <li><a href="contribution.html" class="active">Contribution</a></li>
+        </ul>
+        <div class="theme-switch-wrapper">
+            <button id="theme-toggle" class="theme-toggle"><i class="fas fa-moon"></i><span>Dark Mode</span></button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <header>
+            <h1>Contribuer au Projet</h1>
+            <p class="subtitle">Standards de code et processus de Pull Request.</p>
+        </header>
+
+        <article>
+            <section>
+                <h2>Workflow Git</h2>
+                <p>Nous utilisons le modèle "Feature Branch".</p>
+                <pre>
+git checkout -b feature/ma-nouvelle-fonc
+# ... codage ...
+git commit -m "feat: ajouter export CSV"
+git push origin feature/ma-nouvelle-fonc</pre>
+            </section>
+
+            <section>
+                <h2>Standards de Code (Dart/Flutter)</h2>
+                <ul>
+                    <li><strong>Linting :</strong> Le code doit passer <code>flutter analyze</code> sans erreur.</li>
+                    <li><strong>Formatage :</strong> Utilisez <code>dart format .</code> avant chaque commit.</li>
+                    <li><strong>Architecture :</strong> Respectez le dossier <code>viewmodels/</code> pour toute logique.</li>
+                </ul>
+            </section>
+        </article>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

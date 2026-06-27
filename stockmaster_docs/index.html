@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockMaster - Documentation Officielle</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <button id="mobile-menu-btn" class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+
+    <nav class="sidebar">
+        <div class="logo"><i class="fas fa-boxes"></i> StockMaster</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active"><i class="fas fa-home"></i> Accueil</a></li>
+            <li><a href="architecture.html"><i class="fas fa-server"></i> Architecture</a></li>
+            <li><a href="api.html"><i class="fas fa-database"></i> API & Données</a></li>
+            <li><a href="guide.html"><i class="fas fa-book-open"></i> Guide Complet</a></li>
+            <li><a href="contribution.html"><i class="fas fa-code-branch"></i> Contribution</a></li>
+        </ul>
+        <div class="theme-switch-wrapper">
+            <button id="theme-toggle" class="theme-toggle"><i class="fas fa-moon"></i><span>Mode Sombre</span></button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <header>
+            <h1>Bienvenue sur StockMaster</h1>
+            <p class="subtitle">La solution ultime de gestion d'inventaire sur mobile.</p>
+        </header>
+
+        <article>
+            <section>
+                <div class="alert alert-info" style="border-left-color: var(--secondary-color); background: rgba(0, 184, 148, 0.1); color: var(--text-color);">
+                    <strong>Dernière version :</strong> v1.0.0 | <strong>Statut :</strong> Production Ready
+                </div>
+
+                <h2>Pourquoi StockMaster ?</h2>
+                <p>
+                    StockMaster a été conçu pour répondre aux besoins des PME cherchant à digitaliser leur gestion de stock sans complexité inutile.
+                    Développée en <strong>Flutter</strong>, l'application offre une expérience fluide sur Android, iOS et Desktop.
+                </p>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3>Temps Réel</h3>
+                        <p>Suivez la valeur de votre stock et les mouvements d'entrée/sortie instantanément.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3>Sécurité RBAC</h3>
+                        <p>Gestion fine des rôles (Admin/Employé) et permissions dynamiques stockées en base.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-qrcode"></i></div>
+                        <h3>Scan Intelligent</h3>
+                        <p>Retrouvez vos produits en une seconde grâce au scanner de codes-barres intégré.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-file-export"></i></div>
+                        <h3>Rapports & Exports</h3>
+                        <p>Générez des rapports PDF professionnels et exportez vos données pour comptabilité.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Démarrage Rapide</h2>
+                <p>Consultez les sections suivantes pour prendre en main l'outil :</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Besoin</th>
+                            <th>Section Recommandée</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Je veux installer l'application</td>
+                            <td><a href="architecture.html">Architecture > Installation</a></td>
+                        </tr>
+                        <tr>
+                            <td>Je veux apprendre à l'utiliser</td>
+                            <td><a href="guide.html">Guide Utilisateur</a></td>
+                        </tr>
+                        <tr>
+                            <td>Je suis développeur</td>
+                            <td><a href="api.html">API & Données</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </article>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

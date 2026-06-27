@@ -1,0 +1,16 @@
+Solution
+
+   1. Arrêtez le serveur actuel (Ctrl+C dans le terminal).
+   2. Revenez à la racine du projet (c'est très important).
+      Si vous êtes dans stockmaster_scenario ou docs, tapez :
+   1     cd ..
+      Vérifiez que vous êtes bien dans C:\Users\PC\IdeaProjects\StockMaster.
+   3. Relancez le serveur depuis la racine :
+
+   1     python -m http.server 8000
+   4. Réessayez le lien :
+      👉 http://localhost:8000/stockmaster_scenario/scenario_demo.html
+
+  Si vous aviez lancé le serveur directement dans le dossier stockmaster_scenario, alors le lien aurait été
+  http://localhost:8000/scenario_demo.html (sans le nom du dossier), mais cela casserait les liens vers les
+  images (../stockmaster_docs/). Il faut donc bien lancer le serveur à la racine.

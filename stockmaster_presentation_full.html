@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockMaster - Présentation du Projet</title>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #0f172a;       /* Slate 900 */
+            --bg-card: #1e293b;       /* Slate 800 */
+            --primary: #42affa;       /* Bleu clair tech */
+            --brand-blue: #1B4F8B;    /* Bleu Charte */
+            --brand-green: #5CB85C;   /* Vert Charte */
+            --accent-red: #ef4444;    /* Rouge Alerte */
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+
+        /* --- Reset & Base --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow: hidden; /* Pour gérer le scroll nous-mêmes si besoin, ou scroll-snap */
+        }
+
+        /* --- Scroll Snap Container --- */
+        /* C'est ce qui permet d'avoir une "Page" par écran */
+        .container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Section (Slide) Styles --- */
+        section {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            padding: 40px 10%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+
+        /* Background Pattern discret */
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(rgba(66, 175, 250, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        h1, h2, h3 { font-family: 'Outfit', sans-serif; }
+        
+        h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; background: linear-gradient(to right, #fff, #42affa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h2 { font-size: 2.5rem; color: var(--primary); margin-bottom: 30px; position: relative; display: inline-block; }
+        h2::after { content: ''; position: absolute; left: 0; bottom: -10px; width: 60px; height: 4px; background: var(--brand-green); border-radius: 2px; }
+        h3 { font-size: 1.5rem; color: var(--text-main); margin-bottom: 15px; }
+
+        p, li { font-size: 1.1rem; line-height: 1.6; color: var(--text-muted); }
+        strong { color: white; font-weight: 600; }
+
+        /* --- Animations Classes --- */
+        .anim-up { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .anim-left { opacity: 0; transform: translateX(-30px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .anim-right { opacity: 0; transform: translateX(30px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        
+        /* Active state for animations */
+        section.active .anim-up, 
+        section.active .anim-left, 
+        section.active .anim-right { opacity: 1; transform: translate(0); }
+
+        /* Delays */
+        .d-100 { transition-delay: 100ms; }
+        .d-200 { transition-delay: 200ms; }
+        .d-300 { transition-delay: 300ms; }
+        .d-400 { transition-delay: 400ms; }
+        .d-500 { transition-delay: 500ms; }
+
+        /* --- Components --- */
+        
+        /* Grid Layouts */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 16px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        .card:hover { transform: translateY(-5px); border-color: var(--brand-green); }
+        .card-icon { font-size: 2rem; color: var(--primary); margin-bottom: 15px; }
+
+        /* Lists */
+        ul.check-list { list-style: none; }
+        ul.check-list li { margin-bottom: 15px; display: flex; align-items: start; gap: 10px; }
+        ul.check-list li::before { content: '✓'; color: var(--brand-green); font-weight: bold; }
+
+        ul.dot-list { list-style: none; }
+        ul.dot-list li { margin-bottom: 15px; position: relative; padding-left: 20px; }
+        ul.dot-list li::before { content: ''; position: absolute; left: 0; top: 10px; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; }
+
+        /* Navigation Dots */
+        .nav-dots {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        .dot {
+            width: 12px; height: 12px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .dot.active { background: var(--primary); transform: scale(1.3); }
+
+        /* Screenshots Frames */
+        .phone-frame {
+            border: 8px solid #334155;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            max-height: 500px;
+            display: block;
+            margin: 0 auto;
+            background: #fff; /* Pour les captures avec fond transparent si besoin */
+        }
+
+        .img-diag {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.4s;
+            cursor: zoom-in;
+            background: white;
+            padding: 10px;
+        }
+        .img-diag:hover { transform: scale(1.02); }
+
+        /* --- Footer (Page 11) Specific --- */
+        .contact-box {
+            text-align: center;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            background: linear-gradient(45deg, var(--bg-card), transparent);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            .grid-2 { grid-template-columns: 1fr; }
+            section { padding: 80px 5%; height: auto; min-height: 100vh; }
+            .phone-frame { max-height: 300px; }
+            .nav-dots { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Dots (JS Generated) -->
+    <div class="nav-dots" id="navDots"></div>
+
+    <div class="container" id="scrollContainer">
+
+        <!-- Page 1: Titre & Intro -->
+        <section id="page1">
+            <!-- Logo de l'école centré en haut (plus grand) -->
+            <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); z-index: 10;" class="anim-up">
+                <div style="background: rgba(255,255,255,0.12); padding: 20px 50px; border-radius: 0 0 40px 40px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.2); border-top: none; box-shadow: 0 15px 40px rgba(0,0,0,0.4);">
+                    <img src="stockmaster_docs/logo.png" alt="EMG Logo" style="height: 100px; display: block;">
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="anim-left">
+                    <!-- Conteneur pour le logo StockMaster -->
+                    <div style="background: rgba(255,255,255,0.08); padding: 25px; border-radius: 24px; display: inline-block; margin-bottom: 20px; backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 15px 35px rgba(0,0,0,0.3);">
+                        <img src="assets/logo.png" alt="StockMaster Logo" style="height: 85px; display: block;">
+                    </div>
+                    <h3 style="color: var(--brand-green); letter-spacing: 3px; font-size: 0.9rem; text-transform: uppercase; font-weight: 700; margin-bottom: 15px;">Ingénierie Informatique & Réseaux</h3>
+                    <h1 style="font-size: 4.5rem; margin-bottom: 10px; background: linear-gradient(to right, #ffffff, #42affa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">StockMaster</h1>
+                    <p style="font-size: 1.8rem; font-weight: 300; color: white; margin-bottom: 25px; line-height: 1.2;">
+                        L'intelligence au service <br>de votre <span style="color: var(--primary); font-weight: 600;">Inventaire</span>.
+                    </p>
+                    <p style="font-size: 1.1rem; opacity: 0.9; max-width: 90%; color: var(--text-muted);">
+                        Une solution mobile <strong>autonome et intuitive</strong>, conçue pour digitaliser et sécuriser la logistique des TPE/PME.
+                    </p>
+                    
+                    <div style="margin-top: 40px; background: rgba(255,255,255,0.03); padding: 25px; border-radius: 16px; border-left: 4px solid var(--primary); backdrop-filter: blur(5px);">
+                        <div style="margin-bottom: 15px;">
+                            <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--primary); margin-bottom: 5px; font-weight: 700;">Réalisé par</p>
+                            <p style="color: white; font-size: 1.2rem; font-weight: 500;">Anas HADDOU & Alae Eddine MEHDI</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--brand-green); margin-bottom: 5px; font-weight: 700;">Sous l'encadrement de</p>
+                            <p style="color: white; font-size: 1.2rem; font-weight: 500;">M. Samir BARA <span style="font-size: 0.9rem; opacity: 0.7; font-weight: normal;">(PhD, MCH)</span></p>
+                        </div>
+                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+                            <p style="font-size: 0.9rem; color: var(--text-muted);"><i class="fas fa-graduation-cap" style="margin-right: 8px;"></i>L'école Marocaine d'Ingénierie (EMG) • 2025/2026</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="anim-right" style="display: flex; justify-content: flex-end;">
+                    <img src="stockmaster_docs/login.jpeg" class="phone-frame" alt="Login Screen" style="margin: 0;">
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 2: Contexte & Problématique -->
+        <section id="page2">
+            <h2 class="anim-up">Contexte & Problématique</h2>
+            <div class="grid-2 anim-up d-100">
+                <div class="card" style="border-left-color: var(--accent-red);">
+                    <div class="card-icon" style="color: var(--accent-red);"><i class="fas fa-exclamation-triangle"></i></div>
+                    <h3>Le Constat</h3>
+                    <p>De nombreuses petites structures (garages, boutiques) gèrent encore leurs stocks manuellement (cahiers) ou via Excel.</p>
+                    <br>
+                    <ul class="dot-list">
+                        <li><strong>Erreurs de saisie</strong> et perte de temps.</li>
+                        <li><strong>Aucune visibilité</strong> en temps réel (ruptures non anticipées).</li>
+                        <li><strong>Manque de traçabilité</strong> (qui a pris quoi ?).</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-left-color: var(--brand-green);">
+                    <div class="card-icon" style="color: var(--brand-green);"><i class="fas fa-check-circle"></i></div>
+                    <h3>La Solution : StockMaster</h3>
+                    <p>Une application mobile <strong>autonome (offline-first)</strong> pour digitaliser et simplifier cet inventaire.</p>
+                    <br>
+                    <ul class="check-list">
+                        <li>Fini le papier.</li>
+                        <li>Données fiables et instantanées.</li>
+                        <li>Utilisable partout, tout le temps.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 3: Objectifs -->
+        <section id="page3">
+            <h2 class="anim-up">Objectifs du Projet</h2>
+            <div class="grid-4">
+                <div class="card anim-up d-100">
+                    <div class="card-icon"><i class="fas fa-database"></i></div>
+                    <h3>Centralisation</h3>
+                    <p>Une source unique de vérité pour tout le stock.</p>
+                </div>
+                <div class="card anim-up d-200">
+                    <div class="card-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Mobilité</h3>
+                    <p>Scanner code-barres via caméra pour une efficacité maximale.</p>
+                </div>
+                <div class="card anim-up d-300">
+                    <div class="card-icon"><i class="fas fa-user-shield"></i></div>
+                    <h3>Sécurité</h3>
+                    <p>Gestion des accès via des rôles (Admin vs Employé).</p>
+                </div>
+                <div class="card anim-up d-400">
+                    <div class="card-icon"><i class="fas fa-wifi"></i></div>
+                    <h3>Autonomie</h3>
+                    <p>Fonctionnement sans internet (Base de données locale).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 4: Architecture Technique -->
+        <section id="page4">
+            <h2 class="anim-up">Architecture Technique</h2>
+            <div class="grid-2">
+                <div class="anim-left d-100">
+                    <ul class="check-list">
+                        <li>
+                            <div>
+                                <strong>Framework : Flutter</strong><br>
+                                Langage Dart. Pour une application native performante et multiplateforme.
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <strong>Architecture : MVVM</strong><br>
+                                Séparation claire : Model - View - ViewModel. Code maintenable.
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <strong>Gestion d'état : Provider</strong><br>
+                                Recommandé par Google pour sa simplicité et efficacité.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="anim-right d-200">
+                    <div class="card">
+                        <h3>Stockage & Sécurité</h3>
+                        <ul class="dot-list">
+                            <li><strong>Persistance :</strong> SQLite (via sqflite). Stockage local structuré.</li>
+                            <li><strong>Sécurité :</strong> Hachage SHA-256 pour les mots de passe.</li>
+                        </ul>
+                        <div style="display: flex; gap: 20px; font-size: 3rem; margin-top: 20px; opacity: 0.8;">
+                            <i class="fab fa-flutter" style="color: #42affa;"></i>
+                            <i class="fas fa-layer-group" style="color: #FFA000;"></i>
+                            <i class="fas fa-database" style="color: #ddd;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 5: Modélisation des Données -->
+        <section id="page5">
+            <h2 class="anim-up">Modélisation des Données (UML)</h2>
+            <div class="grid-2">
+                <div class="anim-left d-100">
+                    <p>Base de données relationnelle normalisée.</p>
+                    <br>
+                    <div class="card" style="padding: 15px;">
+                        <h4 style="color: var(--primary);">👤 User</h4>
+                        <p style="font-size: 0.85rem;">Gestion des utilisateurs, mots de passe hashés et rôles.</p>
+                    </div>
+                    <div class="card" style="padding: 15px; margin-top: 10px;">
+                        <h4 style="color: var(--brand-green);">📦 Product</h4>
+                        <p style="font-size: 0.85rem;">Le catalogue : SKU, Prix, Quantité, Catégorie.</p>
+                    </div>
+                    <div class="card" style="padding: 15px; margin-top: 10px;">
+                        <h4 style="color: orange;">🔄 StockMovement</h4>
+                        <p style="font-size: 0.85rem;">Historique de traçabilité (Entrées / Sorties).</p>
+                    </div>
+                </div>
+                <div class="anim-right d-200" style="display:flex; justify-content:center; align-items:center;">
+                    <img src="diagClass.png" class="img-diag" alt="Diagramme de Classes StockMaster">
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 6: Fonctionnalités Clés - Gestion & Sécurité -->
+        <section id="page6">
+            <h2 class="anim-up">Gestion & Sécurité (RBAC)</h2>
+            <div class="grid-2">
+                <div class="anim-left d-100">
+                    <div class="card">
+                        <h3><i class="fas fa-user-shield"></i> Admin</h3>
+                        <p>Accès total aux configurations avancées.</p>
+                        <ul class="dot-list" style="margin-top: 10px;">
+                            <li>Gestion des utilisateurs et rôles.</li>
+                            <li>Configuration des catégories.</li>
+                            <li>Visualisation des marges financières.</li>
+                        </ul>
+                    </div>
+                    <div class="card" style="margin-top: 20px;">
+                        <h3><i class="fas fa-user-tag"></i> Employé</h3>
+                        <p>Interface épurée.</p>
+                        <ul class="dot-list" style="margin-top: 10px;">
+                            <li>Accès restreint aux mouvements.</li>
+                            <li>Pas de suppression définitive.</li>
+                            <li>Impossible de modifier les paramètres critiques.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="anim-right d-200">
+                    <div style="text-align: center;">
+                        <img src="stockmaster_docs/admin_setting.png" class="phone-frame" alt="Paramètres Admin">
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Vue Administrateur : Gestion complète</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 7: Le Cœur de l'App (Dashboard) -->
+        <section id="page7">
+            <h2 class="anim-up">Tableau de Bord (Dashboard)</h2>
+            <div class="grid-2">
+                <div class="anim-left d-100">
+                    <p>Centre de contrôle de l'application offrant une vue synthétique en temps réel.</p>
+                    <br>
+                    <ul class="check-list">
+                        <li>
+                            <strong>Indicateurs Financiers :</strong><br>
+                            Valeur totale du stock et top ventes.
+                        </li>
+                        <li>
+                            <strong>Alertes Visuelles :</strong><br>
+                            Identification immédiate des ruptures et stocks faibles.
+                        </li>
+                        <li>
+                            <strong>Graphiques :</strong><br>
+                            Tendances des Entrées vs Sorties.
+                        </li>
+                    </ul>
+                </div>
+                <div class="anim-right d-200">
+                    <img src="stockmaster_docs/Tableau_de_bord.png" class="phone-frame" style="border-color: var(--primary);" alt="Tableau de Bord StockMaster"> 
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 8: Catalogue & Gestion (Nouveau) -->
+        <section id="page8">
+            <h2 class="anim-up">Catalogue & Gestion Produits</h2>
+            <div class="grid-2">
+                <div class="anim-left d-100" style="display: flex; gap: 20px; justify-content: center;">
+                    <img src="stockmaster_docs/products_list.png" class="phone-frame" style="height: 450px;" alt="Liste Produits">
+                    <img src="stockmaster_docs/add_product.png" class="phone-frame" style="height: 450px; margin-top: 40px;" alt="Ajout Produit">
+                </div>
+                <div class="anim-right d-200">
+                    <h3>Catalogue Interactif</h3>
+                    <p>Chaque carte produit affiche l'image, le SKU et le stock actuel avec un <strong>code couleur</strong> (Vert/Orange/Rouge) selon la disponibilité.</p>
+                    <br>
+                    <h3>Formulaires Intelligents</h3>
+                    <p>Interface de saisie complète avec validations :</p>
+                    <ul class="dot-list">
+                        <li>Ajout de photo (Galerie/Caméra).</li>
+                        <li>Calcul automatique des marges.</li>
+                        <li>Génération de SKU.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 9: Scanner & Historique (Nouveau) -->
+        <section id="page9">
+            <h2 class="anim-up">Traçabilité & Scanner</h2>
+            <div class="grid-2">
+                <div class="anim-left d-100">
+                    <div class="card">
+                        <h3><i class="fas fa-qrcode"></i> Scanner Mobile</h3>
+                        <p>Utilise la caméra pour scanner EAN/QR Codes et rediriger automatiquement vers la fiche produit.</p>
+                    </div>
+                    <div class="card" style="margin-top: 20px; border-left-color: orange;">
+                        <h3><i class="fas fa-history"></i> Historique (Logs)</h3>
+                        <p>Journal d'audit complet listant chronologiquement :</p>
+                        <ul class="dot-list">
+                            <li>Qui (Utilisateur)</li>
+                            <li>Quoi (Produit & Quantité)</li>
+                            <li>Quand (Date exacte)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="anim-right d-200" style="display: flex; gap: 20px; justify-content: center;">
+                    <img src="stockmaster_docs/codescanner.png" class="phone-frame" style="height: 450px;" alt="Scanner">
+                    <img src="stockmaster_docs/transactions_history.png" class="phone-frame" style="height: 450px; margin-top: 40px;" alt="Historique">
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 10: Rapports & UI (Nouveau) -->
+        <section id="page10">
+            <h2 class="anim-up">Rapports & Expérience Utilisateur</h2>
+            <div class="grid-2">
+                <div class="anim-left d-100" style="display: flex; gap: 20px; align-items: flex-start;">
+                    <img src="stockmaster_docs/rapport&stistics.png" class="phone-frame" style="height: 400px;" alt="Rapports">
+                    <img src="stockmaster_docs/prodcut_details.png" class="phone-frame" style="height: 400px; margin-top: 40px; border-color: var(--brand-green);" alt="Détail Produit">
+                </div>
+                <div class="anim-right d-200">
+                    <h3>📊 Outil d'aide à la décision</h3>
+                    <p>Génération de tableaux analytiques (Top Ventes, Pertes) avec <strong>export PDF & CSV</strong>.</p>
+                    <br>
+                    <h3>✨ UX/UI Soignée</h3>
+                    <p>Une attention particulière portée au design :</p>
+                    <ul class="check-list">
+                        <li><strong>Fiche Produit Élégante :</strong> Visibilité totale sur les métadonnées.</li>
+                        <li><strong>Mode Sombre :</strong> Confort visuel maximal.</li>
+                        <li><strong>Navigation Fluide :</strong> Transitions douces entre les écrans.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 11: Défis Techniques (Décalé) -->
+        <section id="page11">
+            <h2 class="anim-up">Défis Techniques & Solutions</h2>
+            <div class="grid-2">
+                <div class="anim-left d-100">
+                    <div class="card">
+                        <h3>Charte Graphique</h3>
+                        <div style="display: flex; gap: 15px; margin-top: 15px;">
+                            <div style="width: 50px; height: 50px; background: #1B4F8B; border-radius: 8px;"></div>
+                            <div><strong>Bleu</strong><br>Confiance</div>
+                        </div>
+                        <div style="display: flex; gap: 15px; margin-top: 10px;">
+                            <div style="width: 50px; height: 50px; background: #5CB85C; border-radius: 8px;"></div>
+                            <div><strong>Vert</strong><br>Positif / Entrée</div>
+                        </div>
+                        <div style="display: flex; gap: 15px; margin-top: 10px;">
+                            <div style="width: 50px; height: 50px; background: #ef4444; border-radius: 8px;"></div>
+                            <div><strong>Rouge</strong><br>Alerte / Sortie</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="anim-right d-200">
+                    <h3 style="color: var(--text-main);">🌙 Mode Sombre (Dark Mode)</h3>
+                    <p>Implémenté pour le confort visuel, géré dynamiquement via <code>ThemeViewModel</code>.</p>
+                    <br>
+                    <h3 style="color: var(--text-main);">👌 Ergonomie</h3>
+                    <p>Interface épurée adaptée aux utilisateurs non techniques. Pas de menus complexes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 12: Défis Techniques -->
+        <section id="page12">
+            <h2 class="anim-up">Défis Techniques & Solutions</h2>
+            <div class="grid-2">
+                <div class="card anim-left d-100">
+                    <div style="color: orange; font-size: 2rem; margin-bottom: 10px;"><i class="fas fa-file-csv"></i></div>
+                    <h3>Challenge 1 : Import CSV</h3>
+                    <p><strong style="color: #ef4444;">Problème :</strong> Gérer les différents encodages et séparateurs (point-virgule vs virgule).</p>
+                    <hr style="border: 0; border-top: 1px dashed rgba(255,255,255,0.2); margin: 15px 0;">
+                    <p><strong style="color: var(--brand-green);">Solution :</strong> Création d'un <code>ImportService</code> robuste avec détection d'erreurs ligne par ligne.</p>
+                </div>
+                <div class="card anim-right d-200">
+                    <div style="color: var(--primary); font-size: 2rem; margin-bottom: 10px;"><i class="fas fa-id-card-alt"></i></div>
+                    <h3>Challenge 2 : Permissions (RBAC)</h3>
+                    <p><strong style="color: #ef4444;">Problème :</strong> Adapter l'UI selon le rôle connecté sans dupliquer le code.</p>
+                    <hr style="border: 0; border-top: 1px dashed rgba(255,255,255,0.2); margin: 15px 0;">
+                    <p><strong style="color: var(--brand-green);">Solution :</strong> Directives conditionnelles dans les Vues basées sur <code>viewModel.isAdmin</code>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 13: Bilan & Perspectives -->
+        <section id="page13">
+            <h2 class="anim-up">Bilan & Perspectives (V2)</h2>
+            <div class="grid-2">
+                <div class="anim-left d-100">
+                    <h3>Bilan V1</h3>
+                    <p>Application <strong>fonctionnelle, stable</strong>, répondant au cahier des charges (Gestion autonome et locale).</p>
+                    <br>
+                    <p style="color: orange;">⚠️ Limite actuelle : Pas de synchronisation multi-appareils (BDD locale).</p>
+                </div>
+                <div class="anim-right d-200">
+                    <div class="card">
+                        <h3>🚀 Roadmap V2</h3>
+                        <ul class="check-list" style="margin-top: 20px;">
+                            <li><strong>Synchronisation Cloud</strong> (Firebase ou API REST).</li>
+                            <li><strong>Version Web</strong> pour l'administration PC.</li>
+                            <li><strong>Notifications Push</strong> pour les alertes critiques.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 14: Conclusion -->
+        <section id="page14" style="text-align: center;">
+            <div class="anim-up">
+                <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--brand-green); margin-bottom: 20px;"></i>
+                <h1>Conclusion</h1>
+                <p style="font-size: 1.5rem; max-width: 800px; margin: 0 auto;">StockMaster est une solution concrète à un problème réel.</p>
+                <br>
+                <p>Ce projet a permis de monter en compétence sur l'architecture logicielle (MVVM) et le cycle de vie d'une application mobile.</p>
+                
+                <div class="contact-box anim-up d-200" style="margin-top: 50px; display: inline-block;">
+                    <h3>Merci de votre attention !</h3>
+                    <p>Place à la démonstration & Questions-Réponses.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JavaScript interactions -->
+    <script>
+        // Génération des points de navigation
+        const sections = document.querySelectorAll('section');
+        const dotsContainer = document.getElementById('navDots');
+        const container = document.getElementById('scrollContainer');
+
+        sections.forEach((sec, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                sec.scrollIntoView({ behavior: 'smooth' });
+            });
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+
+        // Observer pour gérer l'état Actif et les animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Active la section (lance les anims CSS)
+                    entry.target.classList.add('active');
+                    
+                    // Met à jour les dots
+                    const id = entry.target.getAttribute('id');
+                    const index = Array.from(sections).findIndex(s => s.getAttribute('id') === id);
+                    dots.forEach(d => d.classList.remove('active'));
+                    if(dots[index]) dots[index].classList.add('active');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sections.forEach(sec => observer.observe(sec));
+
+        // Navigation Clavier
+        document.addEventListener('keydown', (e) => {
+            const currentSection = document.querySelector('section.active') || sections[0];
+            const currentIndex = Array.from(sections).indexOf(currentSection);
+
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                if (currentIndex < sections.length - 1) {
+                    sections[currentIndex + 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                if (currentIndex > 0) {
+                    sections[currentIndex - 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+{
+  "name": "StockMaster",
+  "children": [
+    {
+      "name": "Produits",
+      "icon": "📦",
+      "color": "#42affa",
+      "screenshot": "/stockmaster_docs/products_list.png",
+      "description": "Le catalogue central de l'application. Gérez vos références, prix et catégories.",
+      "bullets": ["Liste filtrable avec recherche", "Indicateurs de stock (Couleurs)", "Ajout rapide"],
+      "children": [
+        {
+          "name": "Liste Produits",
+          "icon": "📋",
+          "screenshot": "/stockmaster_docs/products_list.png",
+          "description": "Vue d'ensemble de tous les articles avec état du stock instantané.",
+          "bullets": ["Code couleur stock", "Recherche par nom/SKU", "Filtres par catégorie"]
+        },
+        {
+          "name": "Détail Produit",
+          "icon": "🔍",
+          "screenshot": "/stockmaster_docs/prodcut_details.png",
+          "description": "Fiche complète d'un produit avec toutes ses métadonnées.",
+          "bullets": ["Image produit", "Prix Achat/Vente", "Fournisseur"]
+        },
+        {
+          "name": "Ajout / Edit",
+          "icon": "✏️",
+          "screenshot": "/stockmaster_docs/add_product.png",
+          "description": "Formulaire complet pour la création ou la modification de produits.",
+          "bullets": ["Validation des champs", "Upload photo", "Scan code-barres intégré"]
+        }
+      ]
+    },
+    {
+      "name": "Mouvements",
+      "icon": "🔁",
+      "color": "#5CB85C",
+      "screenshot": "/stockmaster_docs/transactions_history.png",
+      "description": "Gestion des flux logistiques Entrée/Sortie pour maintenir le stock à jour.",
+      "bullets": ["Entrée de stock", "Sortie / Vente", "Traçabilité"],
+      "children": [
+        {
+          "name": "Historique",
+          "icon": "📜",
+          "screenshot": "/stockmaster_docs/transactions_history.png",
+          "description": "Journal d'audit complet de toutes les transactions passées.",
+          "bullets": ["Tri chronologique", "Détail utilisateur", "Type de mouvement"]
+        },
+        {
+          "name": "Scanner",
+          "icon": "📷",
+          "screenshot": "/stockmaster_docs/codescanner.png",
+          "description": "Utilisation de la caméra pour identifier rapidement un produit.",
+          "bullets": ["Reconnaissance EAN/QR", "Action rapide", "Lampe torche"]
+        },
+        {
+          "name": "Ajustement",
+          "icon": "⚖️",
+          "screenshot": "/stockmaster_docs/products_list.png",
+          "description": "Correction rapide des quantités en cas d'écart d'inventaire.",
+          "bullets": ["Pop-up rapide", "Motif obligatoire", "Validation temps réel"]
+        }
+      ]
+    },
+    {
+      "name": "Rapports",
+      "icon": "📊",
+      "color": "#FFA000",
+      "screenshot": "/stockmaster_docs/rapport&stistics.png",
+      "description": "Outils d'aide à la décision et analyse de la performance.",
+      "bullets": ["Statistiques visuelles", "Exports", "Analyse financière"],
+      "children": [
+        {
+          "name": "Tableau de Bord",
+          "icon": "📈",
+          "screenshot": "/stockmaster_docs/Tableau_de_bord.png",
+          "description": "Vue synthétique de l'activité dès l'ouverture de l'app.",
+          "bullets": ["Valeur totale stock", "Top ventes", "Alertes stock faible"]
+        },
+        {
+          "name": "Export PDF",
+          "icon": "📄",
+          "screenshot": "/stockmaster_docs/exported_as_pdf.png",
+          "description": "Génération de documents imprimables pour l'inventaire physique.",
+          "bullets": ["Mise en page A4", "Liste complète", "Partage facile"]
+        },
+        {
+          "name": "Export Excel",
+          "icon": "📗",
+          "screenshot": "/stockmaster_docs/exported_as_excel.png",
+          "description": "Export brut (CSV/XLS) pour retraitement comptable.",
+          "bullets": ["Compatibilité Excel", "Données brutes", "Archivage"]
+        }
+      ]
+    },
+    {
+      "name": "Paramètres",
+      "icon": "⚙️",
+      "color": "#9333ea",
+      "screenshot": "/stockmaster_docs/admin_setting.png",
+      "description": "Configuration globale de l'application et gestion des accès.",
+      "bullets": ["Personnalisation", "Sécurité", "Utilisateurs"],
+      "children": [
+        {
+          "name": "Utilisateurs",
+          "icon": "👥",
+          "screenshot": "/stockmaster_docs/admin_setting.png",
+          "description": "Gestion des comptes et des rôles (Admin/Employé).",
+          "bullets": ["Création compte", "Attribution rôle", "Suppression"]
+        },
+        {
+          "name": "Sécurité",
+          "icon": "🔒",
+          "screenshot": "/stockmaster_docs/login.jpeg",
+          "description": "Paramètres d'authentification et protection des données.",
+          "bullets": ["Changement mot de passe", "Logs de connexion", "Sauvegarde"]
+        }
+      ]
+    }
+  ]
+}

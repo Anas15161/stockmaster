@@ -1,0 +1,4 @@
+name,sku,category,quantity,costPrice,sellingPrice,supplier,imageUrl
+"Souris Test","TEST-001","Electronique",50,10.0,20.0,"TestSupply","https://placehold.co/400x400/png?text=Mouse"
+"Chaise Bureau","TEST-002","Mobilier",10,50.0,100.0,"OfficeDepot","https://placehold.co/400x400/orange/white/png?text=Chair"
+"T-Shirt Basic","TEST-003","Vetements",100,5.0,15.0,"FashionHub","https://placehold.co/400x400/blue/white/png?text=Shirt"

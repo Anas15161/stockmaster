@@ -1,0 +1,42 @@
+[
+    {
+        "file": "../stockmaster_docs/login.jpeg",
+        "title": "Authentification Sécurisée",
+        "desc": "Connexion chiffrée (SHA-256) avec gestion des rôles."
+    },
+    {
+        "file": "../stockmaster_docs/Tableau_de_bord.png",
+        "title": "Tableau de Bord",
+        "desc": "Vue d'ensemble en temps réel des stocks et alertes."
+    },
+    {
+        "file": "../stockmaster_docs/products_list.png",
+        "title": "Liste des Produits",
+        "desc": "Inventaire complet avec indicateurs visuels de disponibilité."
+    },
+    {
+        "file": "../stockmaster_docs/prodcut_details.png",
+        "title": "Détails Produit",
+        "desc": "Fiche technique complète, prix et historique."
+    },
+    {
+        "file": "../stockmaster_docs/add_product.png",
+        "title": "Ajout & Modification",
+        "desc": "Interface intuitive pour la gestion du catalogue."
+    },
+    {
+        "file": "../stockmaster_docs/codescanner.png",
+        "title": "Scanner Code-barres",
+        "desc": "Utilisation de la caméra pour une recherche instantanée."
+    },
+    {
+        "file": "../stockmaster_docs/transactions_history.png",
+        "title": "Historique des Mouvements",
+        "desc": "Traçabilité totale des entrées et sorties (Audit Log)."
+    },
+    {
+        "file": "../stockmaster_docs/rapport&stistics.png",
+        "title": "Rapports & Stats",
+        "desc": "Analyse financière et export des données (PDF/Excel)."
+    }
+]

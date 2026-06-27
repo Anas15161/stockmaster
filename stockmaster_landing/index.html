@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockMaster — Gestion de Stock Fluide & Intelligente</title>
+    <meta name="description" content="Solution mobile de gestion de stock pour TPE/PME. Centralisez, tracez et optimisez vos flux.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Ambiance -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <header id="navbar">
+        <div class="container nav-flex">
+            <a href="#" class="logo"><i class="fas fa-cubes"></i> StockMaster</a>
+            <ul class="nav-links">
+                <li><a href="#problem">Contexte</a></li>
+                <li><a href="#features">Fonctionnalités</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#roadmap">Futur</a></li>
+            </ul>
+            <a href="#demo" class="btn-cta">Démonstration</a>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section id="hero">
+        <div class="container hero-grid">
+            <div class="hero-content reveal">
+                <div style="display:inline-flex; align-items:center; gap:8px; padding: 6px 16px; background:rgba(66, 175, 250, 0.1); border-radius:30px; color:var(--primary); font-size:0.85rem; font-weight:600; margin-bottom:25px; border:1px solid rgba(66, 175, 250, 0.2);">
+                    <span style="width:8px; height:8px; background:var(--primary); border-radius:50%; box-shadow:0 0 10px var(--primary);"></span>
+                    Version 1.0 Disponible
+                </div>
+                <h1 class="text-gradient">Gestion fluide <br>des produits.</h1>
+                <p class="text-muted" style="margin-bottom: 35px; max-width: 550px;">
+                    Une solution mobile autonome pour centraliser vos données, anticiper les ruptures et digitaliser vos inventaires sans complexité.
+                </p>
+                <div class="cta-group">
+                    <a href="#demo" class="btn-cta"><i class="fas fa-play" style="margin-right: 10px;"></i> Voir la démo</a>
+                    <a href="#" style="margin-left: 20px; color: #fff; font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--border);">Lire le rapport</a>
+                </div>
+            </div>
+            
+            <div class="hero-visual" id="heroVisual">
+                <div class="phone-mockup" id="phoneMockup">
+                    <img src="../stockmaster_docs/login.jpeg" alt="StockMaster Login">
+                </div>
+                <div class="floating-badge badge-1">
+                    <i class="fas fa-check-circle" style="color:var(--accent)"></i> Traçabilité Totale
+                </div>
+                <div class="floating-badge badge-2">
+                    <i class="fas fa-bolt" style="color:var(--primary)"></i> Zéro Latence
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEME & CIBLE -->
+    <section id="problem" style="padding: 100px 0;">
+        <div class="container">
+            <div style="text-align: center; max-width: 800px; margin: 0 auto 80px;">
+                <h2 style="font-size: 2.5rem;">Pourquoi StockMaster ?</h2>
+                <p class="text-muted">Les méthodes artisanales (Cahiers, Excel) freinent la productivité.</p>
+            </div>
+
+            <div class="bento-grid" style="grid-template-columns: repeat(2, 1fr);">
+                <div class="bento-card reveal">
+                    <div class="bento-icon" style="color:#ef4444; border-color: rgba(239, 68, 68, 0.3);"><i class="fas fa-exclamation-triangle"></i></div>
+                    <h3>Le Constat</h3>
+                    <ul class="text-muted" style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 10px;"><i class="fas fa-times" style="color:#ef4444; margin-right: 10px;"></i> Erreurs de saisie et doublons.</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-times" style="color:#ef4444; margin-right: 10px;"></i> Ruptures de stock non anticipées.</li>
+                        <li><i class="fas fa-times" style="color:#ef4444; margin-right: 10px;"></i> Aucune visibilité en temps réel.</li>
+                    </ul>
+                </div>
+                <div class="bento-card reveal" style="border-color: var(--accent);">
+                    <div class="bento-icon" style="color:var(--accent); border-color: var(--accent-glow);"><i class="fas fa-check"></i></div>
+                    <h3>La Solution</h3>
+                    <p class="text-muted">
+                        Un outil <strong>simple, rapide et fiable</strong>. StockMaster permet de suivre l'état du stock en temps réel, d'assurer la traçabilité des mouvements et de réduire les erreurs humaines grâce à l'automatisation.
+                    </p>
+                </div>
+            </div>
+
+            <!-- CIBLE -->
+            <div class="target-grid">
+                <div class="target-card reveal">
+                    <i class="fas fa-store target-icon"></i>
+                    <h4>Commerces</h4>
+                    <p class="text-muted" style="font-size: 0.9rem;">Boutiques, épiceries, magasins.</p>
+                </div>
+                <div class="target-card reveal" style="transition-delay: 0.1s;">
+                    <i class="fas fa-warehouse target-icon"></i>
+                    <h4>Logistique</h4>
+                    <p class="text-muted" style="font-size: 0.9rem;">Petits entrepôts & ateliers.</p>
+                </div>
+                <div class="target-card reveal" style="transition-delay: 0.2s;">
+                    <i class="fas fa-tools target-icon"></i>
+                    <h4>Garages</h4>
+                    <p class="text-muted" style="font-size: 0.9rem;">Gestion de pièces détachées.</p>
+                </div>
+                <div class="target-card reveal" style="transition-delay: 0.3s;">
+                    <i class="fas fa-user-tie target-icon"></i>
+                    <h4>Entrepreneurs</h4>
+                    <p class="text-muted" style="font-size: 0.9rem;">Auto-entrepreneurs & artisans.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FONCTIONNALITÉS (BENTO GRID) -->
+    <section id="features">
+        <div class="container">
+            <div class="section-header reveal" style="margin-bottom: 60px;">
+                <h2>Fonctionnalités Clés</h2>
+                <p class="text-muted">Une suite complète pour maîtriser votre inventaire.</p>
+            </div>
+
+            <div class="bento-grid">
+                <div class="bento-card span-2 reveal">
+                    <div class="bento-icon"><i class="fas fa-box"></i></div>
+                    <div>
+                        <h3>Gestion de Catalogue (CRUD)</h3>
+                        <p class="text-muted">Ajout complet avec photos, SKU, catégories et prix. Indicateurs visuels de disponibilité (Vert/Orange/Rouge).</p>
+                    </div>
+                </div>
+                <div class="bento-card reveal">
+                    <div class="bento-icon"><i class="fas fa-qrcode"></i></div>
+                    <h3>Smart Scanner</h3>
+                    <p class="text-muted">Utilisez la caméra pour scanner EAN/QR codes et retrouver une fiche produit instantanément.</p>
+                </div>
+                <div class="bento-card reveal">
+                    <div class="bento-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <h3>Flux IN / OUT</h3>
+                    <p class="text-muted">Enregistrez les entrées et sorties en un clic. Historique détaillé pour l'audit.</p>
+                </div>
+                <div class="bento-card span-2 reveal">
+                    <div class="bento-icon"><i class="fas fa-chart-line"></i></div>
+                    <div>
+                        <h3>Tableau de Bord Décisionnel</h3>
+                        <p class="text-muted">Valeur totale du stock, Top ventes, et alertes de stock critique. Tout pour prendre les bonnes décisions.</p>
+                    </div>
+                </div>
+                <div class="bento-card reveal">
+                    <div class="bento-icon"><i class="fas fa-file-pdf"></i></div>
+                    <h3>Reporting</h3>
+                    <p class="text-muted">Génération de rapports PDF et export CSV pour la comptabilité.</p>
+                </div>
+                <div class="bento-card reveal">
+                    <div class="bento-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Sécurité RBAC</h3>
+                    <p class="text-muted">Rôles distincts : Admin (Total) vs Employé (Restreint). Hash SHA-256.</p>
+                </div>
+                <div class="bento-card reveal">
+                    <div class="bento-icon"><i class="fas fa-wifi"></i></div>
+                    <h3>Mode Offline</h3>
+                    <p class="text-muted">Base de données locale SQLite. Fonctionne parfaitement sans internet.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARCHITECTURE ISO -->
+    <section id="architecture">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;" class="reveal">
+                <h2>Architecture Technique</h2>
+                <p class="text-muted">Conçu avec le pattern <strong>MVVM</strong> pour garantir modularité et maintenabilité.</p>
+            </div>
+
+            <div class="iso-container reveal">
+                <div class="iso-stack">
+                    <!-- VIEW -->
+                    <div class="iso-layer layer-view">
+                        <div class="iso-text">
+                            <span class="iso-label">VIEW (UI)</span>
+                            <span class="iso-desc">Flutter Widgets • Screens • Animations</span>
+                        </div>
+                    </div>
+                    
+                    <!-- VIEWMODEL -->
+                    <div class="iso-layer layer-vm">
+                        <div class="iso-text">
+                            <span class="iso-label">VIEWMODEL</span>
+                            <span class="iso-desc">Business Logic • Provider • State</span>
+                        </div>
+                    </div>
+                    
+                    <!-- MODEL -->
+                    <div class="iso-layer layer-model">
+                        <div class="iso-text">
+                            <span class="iso-label">MODEL (DATA)</span>
+                            <span class="iso-desc">SQLite (sqflite) • Entities • Repositories</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stack Tech Chips -->
+            <div style="display: flex; justify-content: center; gap: 15px; margin-top: 60px; flex-wrap: wrap;">
+                <span style="padding: 8px 20px; border: 1px solid var(--border); border-radius: 30px; background: rgba(255,255,255,0.05); color: #fff;">Flutter</span>
+                <span style="padding: 8px 20px; border: 1px solid var(--border); border-radius: 30px; background: rgba(255,255,255,0.05); color: #fff;">Dart</span>
+                <span style="padding: 8px 20px; border: 1px solid var(--border); border-radius: 30px; background: rgba(255,255,255,0.05); color: #fff;">SQLite</span>
+                <span style="padding: 8px 20px; border: 1px solid var(--border); border-radius: 30px; background: rgba(255,255,255,0.05); color: #fff;">Provider</span>
+                <span style="padding: 8px 20px; border: 1px solid var(--border); border-radius: 30px; background: rgba(255,255,255,0.05); color: #fff;">Crypto (SHA-256)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CAROUSEL DEMO -->
+    <section id="demo" style="padding: 100px 0;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 40px;" class="reveal">
+                <h2>Aperçu de l'interface</h2>
+                <p class="text-muted">Ergonomie moderne et Mode Sombre natif.</p>
+            </div>
+            <div class="carousel-container" id="carouselTrack">
+                <!-- Images loaded via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ROADMAP (TIMELINE) -->
+    <section id="roadmap">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;" class="reveal">
+                <h2>Perspectives d'Évolution (V2)</h2>
+                <p class="text-muted">La roadmap pour aller plus loin.</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3><i class="fas fa-cloud"></i> Synchronisation Cloud</h3>
+                        <p class="text-muted">Migration vers une API REST ou Firebase pour permettre le multi-appareils en temps réel.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3><i class="fas fa-globe"></i> Version Web</h3>
+                        <p class="text-muted">Déploiement d'un portail d'administration accessible depuis n'importe quel navigateur.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3><i class="fas fa-bell"></i> Notifications Push</h3>
+                        <p class="text-muted">Alertes instantanées sur le mobile du gérant en cas de rupture critique.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="padding: 60px 0; background: #020617; border-top: 1px solid var(--border);">
+        <div class="container" style="text-align: center;">
+            <a href="#" class="logo" style="justify-content: center; margin-bottom: 20px;"><i class="fas fa-cubes"></i> StockMaster</a>
+            <p class="text-muted">Projet de Fin de Module — Ingénierie Informatique</p>
+            <p style="margin-top: 10px; font-size: 0.9rem; color: #64748b;">Réalisé par Anas HADDOU & Alae Eddine MEHDI • Encadré par M. Samir BARA</p>
+            <div style="margin-top: 30px;">
+                <a href="#" style="color: var(--text-muted); margin: 0 10px;"><i class="fab fa-github"></i></a>
+                <a href="#" style="color: var(--text-muted); margin: 0 10px;"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL -->
+    <div class="modal" id="imageModal">
+        <span class="modal-close" onclick="closeModal()" style="position:absolute; top:30px; right:30px; color:white; font-size:2.5rem; cursor:pointer; z-index:2001;">&times;</span>
+        <img class="modal-img" id="modalImg" src="">
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

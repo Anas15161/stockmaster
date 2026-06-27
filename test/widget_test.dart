@@ -24,7 +24,7 @@ void main() {
     expect(find.text('StockMaster'), findsOneWidget);
     expect(find.text('Username'), findsOneWidget);
     expect(find.text('Password'), findsOneWidget);
-    expect(find.text('Login'), findsOneWidget);
+    expect(find.text('Log In'), findsOneWidget);
 
     expect(find.text('0'), findsNothing);
     expect(find.byIcon(Icons.add), findsNothing);

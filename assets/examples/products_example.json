@@ -1,0 +1,29 @@
+{
+  "categories": ["Electronique", "Mobilier", "Vetements", "Gadgets"],
+  "products": [
+    {
+      "name": "Montre Connectée",
+      "sku": "TEST-JSON-01",
+      "category": "Gadgets",
+      "quantity": 25,
+      "costPrice": 45.00,
+      "sellingPrice": 89.99,
+      "supplier": "GadgetWorld",
+      "images": [
+        "https://placehold.co/400x400/green/white/png?text=Watch"
+      ]
+    },
+    {
+      "name": "Sticker Bleu (Base64)",
+      "sku": "TEST-JSON-02",
+      "category": "Stationery",
+      "quantity": 500,
+      "costPrice": 0.05,
+      "sellingPrice": 0.50,
+      "supplier": "Stationery Co",
+      "images": [
+        "iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAEFJREFUaN7t0rENACAQA8F/6b80W4AESJzRyi9fV1k1u676u/UEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEPgssZ+BAK8V2FwAAAABJRU5ErkJggg=="
+      ]
+    }
+  ]
+}

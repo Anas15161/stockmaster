@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import '../viewmodels/stock_viewmodel.dart';
+import '../viewmodels/language_viewmodel.dart';
 import '../models/product.dart';
 import '../utils/app_colors.dart';
 
@@ -23,7 +24,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
   // Contrôleurs
   late TextEditingController _nameController;
   late TextEditingController _skuController;
-  late TextEditingController _categoryController;
+  // Category handled by dropdown
+  String? _selectedCategory;
+  
   late TextEditingController _qtyController;
   late TextEditingController _costPriceController;
   late TextEditingController _sellingPriceController;
@@ -37,7 +40,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
     super.initState();
     _nameController = TextEditingController(text: widget.product?.name ?? '');
     _skuController = TextEditingController(text: widget.product?.sku ?? '');
-    _categoryController = TextEditingController(text: widget.product?.category ?? '');
+    
+    // Set initial category
+    if (widget.product?.category != null && widget.product!.category.isNotEmpty) {
+      _selectedCategory = widget.product!.category;
+    }
+
     _qtyController = TextEditingController(text: widget.product?.quantity.toString() ?? '');
     _costPriceController = TextEditingController(text: widget.product?.costPrice.toString() ?? '');
     _sellingPriceController = TextEditingController(text: widget.product?.sellingPrice.toString() ?? '');
@@ -52,7 +60,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
   void dispose() {
     _nameController.dispose();
     _skuController.dispose();
-    _categoryController.dispose();
     _qtyController.dispose();
     _costPriceController.dispose();
     _sellingPriceController.dispose();
@@ -60,8 +67,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
     super.dispose();
   }
 
-  Future<void> _pickImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+  Future<void> _pickImage(ImageSource source) async {
+    final XFile? image = await _picker.pickImage(source: source);
     if (image != null) {
       final appDir = await getApplicationDocumentsDirectory();
       final fileName = p.basename(image.path);
@@ -71,6 +78,37 @@ class _AddProductScreenState extends State<AddProductScreen> {
         _selectedImages.add(savedImage.path);
       });
     }
+  }
+
+  void _showImageSourceActionSheet(BuildContext context) {
+    final languageViewModel = Provider.of<LanguageViewModel>(context, listen: false);
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext ctx) {
+        return SafeArea(
+          child: Wrap(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: Text(languageViewModel.translate('gallery')),
+                onTap: () {
+                  _pickImage(ImageSource.gallery);
+                  Navigator.of(ctx).pop();
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_camera),
+                title: Text(languageViewModel.translate('camera')),
+                onTap: () {
+                  _pickImage(ImageSource.camera);
+                  Navigator.of(ctx).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   void _removeImage(int index) {
@@ -85,7 +123,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         id: widget.product?.id, // Keep ID for updates
         name: _nameController.text,
         sku: _skuController.text,
-        category: _categoryController.text.isEmpty ? 'General' : _categoryController.text,
+        category: _selectedCategory ?? 'General',
         quantity: int.parse(_qtyController.text),
         costPrice: double.parse(_costPriceController.text),
         sellingPrice: double.parse(_sellingPriceController.text),
@@ -94,7 +132,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       );
 
       final viewModel = Provider.of<StockViewModel>(context, listen: false);
-      if (widget.product != null) {
+      if (widget.product?.id != null) {
         viewModel.updateProduct(product);
       } else {
         viewModel.addProduct(product);
@@ -105,11 +143,27 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isEditing = widget.product != null;
+    final isEditing = widget.product?.id != null;
+    final languageViewModel = Provider.of<LanguageViewModel>(context);
+    final stockViewModel = Provider.of<StockViewModel>(context);
+
+    // Ensure selected category is valid (in case list changed), or keep it if editing existing
+    // If _selectedCategory is not in stockViewModel.categories, we might want to add it or show it anyway.
+    // For now, we will assume it's valid or allow it if it was already set.
+    // But to populate the dropdown, we need unique items.
+    
+    // Combine existing categories with selected if missing (for legacy support)
+    Set<String> dropdownItems = Set.from(stockViewModel.categories);
+    if (_selectedCategory != null && _selectedCategory!.isNotEmpty) {
+      dropdownItems.add(_selectedCategory!);
+    }
+    if (dropdownItems.isEmpty) dropdownItems.add('General');
+    
+    final categoryValue = dropdownItems.contains(_selectedCategory) ? _selectedCategory : null;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEditing ? "Edit Product" : "Add Product"),
+        title: Text(isEditing ? languageViewModel.translate('edit_product') : languageViewModel.translate('add_product')),
         backgroundColor: AppColors.bleuStock,
         foregroundColor: Colors.white,
       ),
@@ -131,7 +185,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   itemBuilder: (ctx, index) {
                     if (index == _selectedImages.length) {
                       return GestureDetector(
-                        onTap: _pickImage,
+                        onTap: () => _showImageSourceActionSheet(context),
                         child: Container(
                           width: 100,
                           decoration: BoxDecoration(
@@ -143,6 +197,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         ),
                       );
                     }
+                    final imagePath = _selectedImages[index];
+                    final isNetworkImage = imagePath.startsWith('http');
+
                     return Stack(
                       children: [
                         Container(
@@ -150,7 +207,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
-                              image: FileImage(File(_selectedImages[index])),
+                              image: isNetworkImage
+                                  ? NetworkImage(imagePath) as ImageProvider
+                                  : FileImage(File(imagePath)),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -173,26 +232,58 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ),
               const SizedBox(height: 20),
 
-              _buildTextField(_nameController, "Product Name", icon: Icons.shopping_bag_outlined),
+              _buildTextField(_nameController, languageViewModel.translate('product_name'), languageViewModel, icon: Icons.shopping_bag_outlined),
               const SizedBox(height: 15),
-              _buildTextField(_skuController, "SKU / Barcode", icon: Icons.qr_code),
+              _buildTextField(_skuController, languageViewModel.translate('sku_barcode'), languageViewModel, icon: Icons.qr_code),
               const SizedBox(height: 15),
-              _buildTextField(_categoryController, "Category", icon: Icons.category_outlined),
+              
+              // Category Dropdown
+              DropdownButtonFormField<String>(
+                key: ValueKey(categoryValue),
+                initialValue: categoryValue,
+                decoration: InputDecoration(
+                  labelText: languageViewModel.translate('category'),
+                  prefixIcon: const Icon(Icons.category_outlined, color: AppColors.grisMaster),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: AppColors.bleuStock, width: 2),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                items: dropdownItems.map((String category) {
+                  return DropdownMenuItem<String>(
+                    value: category,
+                    child: Text(category),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _selectedCategory = newValue;
+                  });
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return languageViewModel.translate('required');
+                  }
+                  return null;
+                },
+              ),
+              
               const SizedBox(height: 15),
 
               Row(
                 children: [
-                  Expanded(child: _buildTextField(_qtyController, "Quantity", isNumber: true)),
+                  Expanded(child: _buildTextField(_qtyController, languageViewModel.translate('quantity'), languageViewModel, isNumber: true)),
                   const SizedBox(width: 15),
-                  Expanded(child: _buildTextField(_sellingPriceController, "Selling Price", isNumber: true, prefix: "\$")),
+                  Expanded(child: _buildTextField(_sellingPriceController, languageViewModel.translate('selling_price'), languageViewModel, isNumber: true, prefix: "\$")),
                 ],
               ),
               const SizedBox(height: 15),
               Row(
                 children: [
-                  Expanded(child: _buildTextField(_costPriceController, "Cost Price", isNumber: true, prefix: "\$")),
+                  Expanded(child: _buildTextField(_costPriceController, languageViewModel.translate('cost_price'), languageViewModel, isNumber: true, prefix: "\$")),
                   const SizedBox(width: 15),
-                  Expanded(child: _buildTextField(_supplierController, "Supplier", icon: Icons.local_shipping_outlined)),
+                  Expanded(child: _buildTextField(_supplierController, languageViewModel.translate('supplier'), languageViewModel, icon: Icons.local_shipping_outlined)),
                 ],
               ),
 
@@ -206,14 +297,14 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                 ),
                 child: Text(
-                  isEditing ? "Update Product" : "Save Product",
+                  isEditing ? languageViewModel.translate('update_product') : languageViewModel.translate('save_product'),
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
               ),
               const SizedBox(height: 10),
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text("Cancel", style: TextStyle(color: AppColors.grisMaster)),
+                child: Text(languageViewModel.translate('cancel'), style: const TextStyle(color: AppColors.grisMaster)),
               )
             ],
           ),
@@ -222,7 +313,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     );
   }
 
-  Widget _buildTextField(TextEditingController controller, String label, {bool isNumber = false, IconData? icon, String? prefix}) {
+  Widget _buildTextField(TextEditingController controller, String label, LanguageViewModel languageViewModel, {bool isNumber = false, IconData? icon, String? prefix}) {
     return TextFormField(
       controller: controller,
       keyboardType: isNumber ? TextInputType.number : TextInputType.text,
@@ -238,10 +329,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Required';
+          return languageViewModel.translate('required');
         }
         if (isNumber && double.tryParse(value) == null) {
-          return 'Invalid Number';
+          return languageViewModel.translate('invalid_number');
         }
         return null;
       },

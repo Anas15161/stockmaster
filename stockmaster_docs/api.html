@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API & Schéma - StockMaster Docs</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <button id="mobile-menu-btn" class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+
+    <nav class="sidebar">
+        <div class="logo"><i class="fas fa-boxes"></i> StockMaster</div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Accueil</a></li>
+            <li><a href="architecture.html"><i class="fas fa-server"></i> Architecture</a></li>
+            <li><a href="api.html" class="active"><i class="fas fa-database"></i> API & Données</a></li>
+            <li><a href="guide.html"><i class="fas fa-book-open"></i> Guide Complet</a></li>
+            <li><a href="contribution.html"><i class="fas fa-code-branch"></i> Contribution</a></li>
+        </ul>
+        <div class="theme-switch-wrapper">
+            <button id="theme-toggle" class="theme-toggle"><i class="fas fa-moon"></i><span>Mode Sombre</span></button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <header>
+            <h1>Base de Données & API</h1>
+            <p class="subtitle">Documentation technique de la persistance SQLite et des services.</p>
+        </header>
+
+        <article>
+            <section>
+                <h2>Schéma Relationnel Complet</h2>
+                <p>La base de données <code>stockmaster.db</code> contient les tables suivantes :</p>
+
+                <h3>1. Table <code>users</code></h3>
+                <table>
+                    <thead><tr><th>Champ</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td>id</td><td>INTEGER PK</td><td>Auto-incrément</td></tr>
+                        <tr><td>username</td><td>TEXT UNIQUE</td><td>Identifiant de connexion</td></tr>
+                        <tr><td>email</td><td>TEXT</td><td>Contact & Récupération</td></tr>
+                        <tr><td>passwordHash</td><td>TEXT</td><td>SHA-256</td></tr>
+                        <tr><td>role</td><td>TEXT</td><td>'admin' ou 'employee'</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>2. Table <code>products</code></h3>
+                <table>
+                    <thead><tr><th>Champ</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td>id</td><td>INTEGER PK</td><td>Auto-incrément</td></tr>
+                        <tr><td>name</td><td>TEXT</td><td>Nom du produit</td></tr>
+                        <tr><td>sku</td><td>TEXT</td><td>Code Barre / Référence</td></tr>
+                        <tr><td>quantity</td><td>INTEGER</td><td>Stock actuel</td></tr>
+                        <tr><td>costPrice</td><td>REAL</td><td>Prix d'achat</td></tr>
+                        <tr><td>sellingPrice</td><td>REAL</td><td>Prix de vente</td></tr>
+                        <tr><td>images</td><td>TEXT</td><td>Chemin fichier ou URL</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>3. Table <code>categories</code></h3>
+                <table>
+                    <thead><tr><th>Champ</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td>id</td><td>INTEGER PK</td><td>Auto-incrément</td></tr>
+                        <tr><td>name</td><td>TEXT UNIQUE</td><td>Nom de la catégorie (ex: Électronique)</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>4. Table <code>roles</code></h3>
+                <table>
+                    <thead><tr><th>Champ</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td>id</td><td>INTEGER PK</td><td>Auto-incrément</td></tr>
+                        <tr><td>name</td><td>TEXT UNIQUE</td><td>Nom du rôle (admin, employee)</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>5. Table <code>movements</code> (Historique)</h3>
+                <table>
+                    <thead><tr><th>Champ</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td>id</td><td>INTEGER PK</td><td>Auto-incrément</td></tr>
+                        <tr><td>productId</td><td>INTEGER</td><td>FK vers products</td></tr>
+                        <tr><td>type</td><td>TEXT</td><td>'IN' (Entrée) ou 'OUT' (Sortie)</td></tr>
+                        <tr><td>quantity</td><td>INTEGER</td><td>Quantité mouvementée</td></tr>
+                        <tr><td>date</td><td>TEXT</td><td>ISO-8601 Date String</td></tr>
+                        <tr><td>reason</td><td>TEXT</td><td>Motif (ex: Vente, Perte)</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>4. Table <code>role_permissions</code> (Sécurité)</h3>
+                <table>
+                    <thead><tr><th>Champ</th><th>Type</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td>role_name</td><td>TEXT</td><td>Nom du rôle (FK)</td></tr>
+                        <tr><td>permission</td><td>TEXT</td><td>ex: 'view_reports', 'manage_stock'</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>Stratégie de Mapping (ORM Léger)</h2>
+                <div class="alert alert-info">
+                    <i class="fas fa-lightbulb"></i> <strong>Choix d'Implémentation :</strong>
+                    L'application utilise une approche hybride pour optimiser les performances et la rapidité de développement.
+                </div>
+                
+                <h3>1. Entités Complexes (Rich Domain Models)</h3>
+                <p>Les tables centrales (<code>users</code>, <code>products</code>, <code>movements</code>) possèdent une logique métier et de nombreux attributs. Elles sont mappées vers des <strong>classes Dart dédiées</strong> dans le dossier <code>/models</code>.</p>
+
+                <h3>2. Tables de Référence (Lightweight References)</h3>
+                <p>Les tables de nomenclature (<code>categories</code>, <code>roles</code>) servent uniquement de dictionnaires. Pour éviter un "boilerplate" excessif :</p>
+                <ul>
+                    <li>Elles existent physiquement en base pour garantir l'intégrité des données.</li>
+                    <li>Elles sont récupérées sous forme de <strong>List&lt;String&gt;</strong> via le <code>DatabaseHelper</code>.</li>
+                    <li>Elles sont injectées directement dans les composants UI (ex: <code>DropdownButton</code>) sans passer par une classe intermédiaire.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Méthodes DatabaseHelper (Service)</h2>
+                <p>Exemples d'appels pour interagir avec les données.</p>
+
+                <h3>Gestion du Stock</h3>
+                <pre>
+// Enregistrer un mouvement
+Future&lt;int&gt; logMovement(StockMovement m) async {
+  final db = await instance.database;
+  return await db.insert('movements', m.toMap());
+}
+
+// Obtenir le Top Ventes
+Future&lt;List&lt;Map&gt;&gt; getTopSellingProducts() async {
+  // Requête SQL complexe avec GROUP BY
+}</pre>
+
+                <h3>Authentification</h3>
+                <pre>
+// Création Utilisateur
+Future&lt;int&gt; createUser(User user, String password) async {
+  final hash = sha256.convert(utf8.encode(password)).toString();
+  // Insert...
+}</pre>
+            </section>
+        </article>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

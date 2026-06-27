@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockMaster - Démo Scénario</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Style -->
+    <link rel="stylesheet" href="scenario_demo.css">
+</head>
+<body>
+
+    <header>
+        <div class="top-bar">
+            <div class="logo"><i class="fas fa-cubes"></i> StockMaster <span style="opacity:0.5; margin-left:10px; font-weight:300;">| Démo Live</span></div>
+            <label class="toggle-auto">
+                <input type="checkbox" id="autoToggle"> Auto-Play
+            </label>
+        </div>
+        <!-- Timeline -->
+        <div class="timeline">
+            <div class="progress-bar" id="progressBar"></div>
+            <div id="timelineDots" style="display:contents">
+                <!-- Généré par JS -->
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- GAUCHE : CONTENU -->
+        <div class="content-box visible">
+            <span class="step-label" id="stepLabel">ÉTAPE 1 / 6</span>
+            <h1 id="stepTitle">Titre de l'étape</h1>
+            <h2 class="subtitle" id="stepSubtitle">Sous-titre explicatif</h2>
+            
+            <p class="description" id="stepDesc">Description détaillée du processus...</p>
+            
+            <ul class="bullets" id="stepBullets">
+                <!-- Bullets -->
+            </ul>
+
+            <div class="kpi-card">
+                <div style="background:rgba(255,255,255,0.1); width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                    <i class="fas fa-chart-line" style="color:var(--primary)"></i>
+                </div>
+                <div>
+                    <div class="kpi-val" id="kpiVal">0</div>
+                    <div class="kpi-label" id="kpiLabel">KPI</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DROITE : VISUEL -->
+        <div class="visual-box">
+            <div class="phone-mockup">
+                <img id="screenImg" src="" alt="App Screen">
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER CONTROLS -->
+    <div class="controls">
+        <button class="btn" id="btnPrev" onclick="prevStep()"><i class="fas fa-arrow-left"></i> Précédent</button>
+        <button class="btn" id="btnNext" onclick="nextStep()" style="background:var(--primary); border-color:var(--primary);">Suivant <i class="fas fa-arrow-right"></i></button>
+    </div>
+
+    <!-- SUMMARY OVERLAY -->
+    <div id="summary-overlay">
+        <div class="summary-card">
+            <h3><i class="fas fa-check-circle" style="color:var(--success)"></i> Scénario Terminé</h3>
+            <p style="color:var(--text-muted); margin-bottom:30px;">Démonstration du flux complet réalisée avec succès.</p>
+            
+            <div class="summary-stats">
+                <div class="stat-box">
+                    <h3>6</h3>
+                    <small>ÉTAPES CLÉS</small>
+                </div>
+                <div class="stat-box">
+                    <h3>100%</h3>
+                    <small>FLUIDITÉ</small>
+                </div>
+                <div class="stat-box">
+                    <h3>0</h3>
+                    <small>ERREUR</small>
+                </div>
+            </div>
+
+            <button class="btn" onclick="closeSummary()" style="width:100%; justify-content:center;">Rejouer la démo</button>
+        </div>
+    </div>
+
+    <script src="scenario_demo.js"></script>
+</body>
+</html>

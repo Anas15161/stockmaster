@@ -1,0 +1,140 @@
+:root {
+    --bg-dark: #0f172a;
+    --bg-panel: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border: rgba(255,255,255,0.1);
+    
+    /* Palette Catégories */
+    --c-models: #4ade80;     /* Green 400 */
+    --c-views: #60a5fa;      /* Blue 400 */
+    --c-viewmodels: #fb923c; /* Orange 400 */
+    --c-services: #c084fc;   /* Violet 400 */
+    --c-utils: #f87171;      /* Red 400 */
+    --c-other: #94a3b8;      /* Slate 400 */
+    --c-root: #ffffff;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg-dark);
+    /* Subtil background grid */
+    background-image: radial-gradient(#334155 1px, transparent 1px);
+    background-size: 40px 40px;
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* HEADER */
+header {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    z-index: 10;
+}
+
+.logo { display: flex; align-items: center; gap: 15px; }
+.logo i { font-size: 24px; color: var(--c-views); }
+.logo h1 { font-size: 18px; margin: 0; font-weight: 600; }
+.logo p { font-size: 12px; margin: 0; color: var(--text-secondary); }
+.badge { background: var(--c-viewmodels); color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 10px; vertical-align: middle; }
+
+/* LEGEND */
+.legend { display: flex; gap: 20px; font-size: 13px; color: var(--text-secondary); }
+.legend-item { display: flex; align-items: center; gap: 8px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; display: block; }
+.cat-models { background: var(--c-models); box-shadow: 0 0 10px rgba(74, 222, 128, 0.4); }
+.cat-views { background: var(--c-views); box-shadow: 0 0 10px rgba(96, 165, 250, 0.4); }
+.cat-viewmodels { background: var(--c-viewmodels); box-shadow: 0 0 10px rgba(251, 146, 60, 0.4); }
+.cat-services { background: var(--c-services); box-shadow: 0 0 10px rgba(192, 132, 252, 0.4); }
+.cat-utils { background: var(--c-utils); box-shadow: 0 0 10px rgba(248, 113, 113, 0.4); }
+
+/* CHART AREA */
+#chart { width: 100%; height: 100vh; cursor: grab; }
+#chart:active { cursor: grabbing; }
+
+/* D3 NODES */
+.node { cursor: pointer; transition: all 0.3s; }
+
+/* Le "pill" background du noeud */
+.node rect {
+    fill: var(--bg-panel);
+    stroke: var(--border);
+    stroke-width: 1px;
+    transition: all 0.3s;
+    rx: 6; /* Rounded corners */
+}
+
+.node:hover rect {
+    stroke: var(--c-views); /* Highlight color on hover */
+    filter: drop-shadow(0 0 8px rgba(96, 165, 250, 0.3));
+}
+
+/* Texte Label */
+.node text.label {
+    font-family: 'Fira Code', monospace; /* Pour un look "Code" */
+    font-size: 13px;
+    fill: var(--text-primary);
+}
+
+/* Icons FontAwesome dans le SVG */
+.node text.icon {
+    font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands";
+    font-weight: 900;
+    font-size: 14px;
+}
+
+.node text.chevron {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 10px;
+    fill: var(--text-secondary);
+    transition: transform 0.3s;
+}
+
+/* LINKS */
+.link {
+    fill: none;
+    stroke: #475569;
+    stroke-width: 1.5px;
+    opacity: 0.6;
+    transition: all 0.5s;
+}
+
+/* TOOLTIP */
+.tooltip {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    border-radius: 8px;
+    color: white;
+    font-size: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    z-index: 100;
+    max-width: 300px;
+    word-wrap: break-word;
+}
+
+.controls-hint {
+    position: absolute;
+    bottom: 20px; left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.5);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    pointer-events: none;
+}
